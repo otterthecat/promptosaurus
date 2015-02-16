@@ -1,0 +1,17 @@
+{
+  "name": "promptosaurus",
+  "version": "0.1.0",
+  "description": "simple command line tool",
+  "main": "promptosaurus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Otter the Cat",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^0.5.1"
+  }
+}
