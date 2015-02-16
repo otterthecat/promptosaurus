@@ -3,21 +3,21 @@ var readline = require('readline');
 var chalk = require('chalk');
 
 var greeting = '';
-greeting += "               __\n";
-greeting += "              / _)\n";
-greeting += "     _.----._/ /\n";
-greeting += "    /         /     Promptosaurus would like to\n";
-greeting += " __/ (  | (  |      ask you some questions...\n";
-greeting += "/__.-'|_|--|_|\n";
+greeting += "                __\n";
+greeting += "               / _)\n";
+greeting += "      _.----._/ /\n";
+greeting += "     /         /     Promptosaurus would like to\n";
+greeting += "  __/ (  | (  |      ask you some questions...\n";
+greeting += " /__.-'|_|--|_|\n";
 
 
 greeting = chalk.green(greeting);
-var farewell = chalk.green('\nPromptosaurus thanks you for your time.\n');
+var farewell = chalk.green('\n Promptosaurus thanks you for your time.\n');
 
 var Rawr = function(){
 	this.line = readline.createInterface(process.stdin, process.stdout);
 	this.queue = [];
-	this.answers = {};
+	this.inputs = {};
 	this.counter = 0;
 	this.complete = function(){};
 	return this;
@@ -26,7 +26,7 @@ var Rawr = function(){
 Rawr.prototype = {
 	"add": function (str, fn) {
 		this.queue.push({
-			"query": str,
+			"query": ' ' + str,
 			"callback": fn
 		});
 		return this;
@@ -38,12 +38,12 @@ Rawr.prototype = {
 			self.counter += 1;
 			var item = self.queue.shift();
 			self.line.question(item.query, function(data){
-				self.answers['input' + self.counter] = data;
+				self.inputs['input' + self.counter] = data;
 				item.callback(data);
 				self.askNext();
 			});
 		} else {
-			self.complete();
+			self.complete(self);
 			console.log(farewell);
 			self.line.close();
 		}
