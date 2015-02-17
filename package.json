@@ -2,16 +2,26 @@
   "name": "promptosaurus",
   "version": "0.1.0",
   "description": "simple command line tool",
+  "author": {
+    "name": "Otter the Cat",
+    "email": "otc@otterthecat.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/otterthecat/promptosaurus.git"
+  },
   "main": "promptosaurus.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "directories":{
+    "example": "./examples"
+  },
   "keywords": [
     "cli"
   ],
-  "author": "Otter the Cat",
-  "license": "MIT",
   "dependencies": {
     "chalk": "^0.5.1"
-  }
+  },
+  "license": "MIT",
 }

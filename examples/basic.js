@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Rawr = require('./promptosaurus');
+var Rawr = require('../promptosaurus');
 
 var rawr = new Rawr();
 
