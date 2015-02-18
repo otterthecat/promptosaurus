@@ -11,7 +11,8 @@ The instance API is as follows:
 ### `.add(str, func)`
 Adds question & callback for each prompt to display the user.
 Multiple questions will require multiple calls to `add()`
-The callback function will get the user's response passed in as an argument
+The callback function is optional, and if passed, will get the user's response passed in as an argument.
+If the callback is not set, then the user input will be stored in Promptosaurus and accessible from within the `.done()` function.
 
 ### `.askNext()`
 Iterates through each set question/callback pair. If no further questions remain, it will call the function set in `done()`, and close the `readline interface` for  you.

@@ -10,7 +10,7 @@ rawr.add('what is this? ', function(data){
 .add('who are you? ', function(data){
 	console.log(data);
 })
-.done(function(prompto){
-	console.log('DONE! ', prompto.inputs);
+.done(function(inputs){
+	console.log('DONE! ', inputs);
 })
 .ask();

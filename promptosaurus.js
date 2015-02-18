@@ -41,7 +41,7 @@ Rawr.prototype = {
 	"add": function (str, fn) {
 		this.queue.push({
 			"query": ' ' + str,
-			"callback": fn
+			"callback": fn || function(){}
 		});
 		return this;
 	},
@@ -57,7 +57,7 @@ Rawr.prototype = {
 				self.askNext();
 			});
 		} else {
-			self.complete(self);
+			self.complete(self.inputs);
 			console.log(farewell);
 			self.line.close();
 		}

@@ -35,7 +35,7 @@ rawr.add('What is the project\'s name?', function(data){
 .add('What is your email?', function(data){
 	pkg.author.email = data;
 })
-.done(function(prompto){
+.done(function(){
 	fs.writeFileSync(process.cwd() + '/package.json', JSON.stringify(pkg), 'utf8');
 })
 .ask();
