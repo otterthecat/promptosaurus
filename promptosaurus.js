@@ -1,6 +1,7 @@
 var fs = require('fs');
 var readline = require('readline');
 var chalk = require('chalk');
+var greeting;
 
 /*
 	cheers to https://github.com/flatiron/prompt
@@ -17,22 +18,20 @@ readline.Interface.prototype.setPrompt = function(prompt, length) {
 	}
 };
 
-var greeting = '';
-greeting += "                __\n";
-greeting += "               / _)\n";
-greeting += "      _.----._/ /\n";
-greeting += "     /         /     Promptosaurus would like to\n";
-greeting += "  __/ (  | (  |      ask you some questions...\n";
-greeting += " /__.-'|_|--|_|\n";
-
-greeting = chalk.green(greeting);
-var farewell = chalk.green('\n Promptosaurus thanks you for your time.\n');
+greeting = "                __\n"
+	+ "               / _)\n"
+	+ "      _.----._/ /\n"
+	+ "     /         /     Promptosaurus would like to\n"
+	+ "  __/ (  | (  |      ask you some questions...\n"
+	+ " /__.-'|_|--|_|\n";
 
 var Rawr = function(){
 	this.line = readline.createInterface(process.stdin, process.stdout);
 	this.queue = [];
 	this.inputs = {};
 	this.counter = 0;
+	this.greeting = chalk.green(greeting);
+	this.farewell = chalk.green('\n Promptosaurus thanks you for your time.\n');
 	this.complete = function(){};
 	return this;
 };
@@ -47,24 +46,28 @@ Rawr.prototype = {
 	},
 
 	"askNext": function (){
-		var self = this;
-		if(self.queue.length > 0) {
-			self.counter += 1;
-			var item = self.queue.shift();
-			self.line.question(chalk.blue(item.query + ' '), function(data){
-				self.inputs['input' + self.counter] = data;
-				item.callback(data);
-				self.askNext();
-			});
+		if(this.queue.length > 0) {
+			this.counter += 1;
+			var item = this.queue.shift();
+			this.line.question(chalk.blue(item.query + ' '), this.getQHandler(item));
 		} else {
-			self.complete(self.inputs);
-			console.log(farewell);
-			self.line.close();
+			this.complete(this.inputs);
+			this.counter = 0;
+			console.log(this.farewell);
+			this.line.close();
 		}
 	},
 
+	"getQHandler": function(obj){
+		return function(data) {
+			this.inputs['input' + this.counter] = data;
+			obj.callback(data);
+			this.askNext();
+		}.bind(this);
+	},
+
 	"ask": function(){
-		console.log(greeting);
+		console.log(this.greeting);
 		this.askNext();
 	},
 
