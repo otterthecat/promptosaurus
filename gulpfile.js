@@ -110,7 +110,10 @@ gulp.task('test', function (cb) {
                 .pipe(istanbul.writeReports({
                     'reporters': ['text-summary']
                 }))
-                .on('end', cb);
+                .on('end', cb)
+                .on('error', function (obj) {
+                    throw new Error(obj.message);
+                });
         });
 });
 

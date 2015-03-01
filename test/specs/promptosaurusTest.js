@@ -85,6 +85,17 @@ describe('promptosaurus', function () {
 
         describe('when queue property\'s length is <= 0', function () {
 
+            var consoleStub;
+
+            beforeEach(function () {
+                consoleStub = sinon.stub(process.stdout, 'write');
+            });
+
+            afterEach(function () {
+                consoleStub = null;
+                process.stdout.write.restore();
+            });
+
             it('should set counter property to 0', function () {
                 rawr.counter = 1;
                 rawr.askNext();
@@ -101,9 +112,9 @@ describe('promptosaurus', function () {
             });
 
             it('should display farewell message', function () {
-                var consoleStub = sinon.stub(process.stdout, 'write');
+                // var consoleStub = sinon.stub(process.stdout, 'write');
                 rawr.askNext();
-                process.stdout.write.restore();
+                // process.stdout.write.restore();
 
                 consoleStub.should.have.been.calledOnce;
                 consoleStub.should.have.been.calledWith(rawr.farewell);
@@ -131,10 +142,21 @@ describe('promptosaurus', function () {
 
     describe('#ask()', function () {
 
-        it('should display greeting', function () {
-            var consoleStub = sinon.stub(process.stdout, 'write');
-            rawr.ask();
+        var consoleStub;
+
+        beforeEach(function () {
+            consoleStub = sinon.stub(process.stdout, 'write');
+        });
+
+        afterEach(function () {
+            consoleStub = null;
             process.stdout.write.restore();
+        });
+
+        it('should display greeting', function () {
+            // var consoleStub = sinon.stub(process.stdout, 'write');
+            rawr.ask();
+            // process.stdout.write.restore();
 
             consoleStub.should.have.been.calledWith(rawr.greeting);
         });
