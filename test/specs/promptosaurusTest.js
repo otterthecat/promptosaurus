@@ -1,4 +1,5 @@
 /* jshint expr: true */
+/* jscs:disable disallowPaddingNewlinesInBlocks */
 // assertion library
 // /////////////////////////////////////////////////////////
 var chai = require('chai');
@@ -14,145 +15,148 @@ chai.use(sinonChai);
 
 // modules to test
 // /////////////////////////////////////////////////////////
-var Rawr = require('../../lib/promptosaurus');
+var Rawr = require('../../index');
 var rawr;
 
 describe('promptosaurus', function () {
-	'use strict';
+    'use strict';
 
-	beforeEach(function (){
-		rawr = new Rawr();
-	});
+    beforeEach(function () {
+        rawr = new Rawr();
+    });
 
-	afterEach(function (){
-		rawr = null;
-	});
+    afterEach(function () {
+        rawr.line.close();
+        rawr = null;
+    });
 
-	describe('#add()', function(){
-		'use strict';
+    describe('#add()', function () {
 
-		var fakeString = 'foo';
-		var fakeFunc = function () {};
+        var fakeString = 'foo';
+        var fakeFunc = function () {};
 
-		it('should update internal queue using passed arguments', function (){
-			rawr.add(fakeString, fakeFunc);
-			rawr.queue[0].query.should.contain(fakeString);
-			rawr.queue[0].callback.should.equal(fakeFunc);
-		});
+        it('should update internal queue using passed arguments', function () {
+            rawr.add(fakeString, fakeFunc);
+            rawr.queue[0].query.should.contain(fakeString);
+            rawr.queue[0].callback.should.equal(fakeFunc);
+        });
 
-		it('should return promptosaurus instance', function(){
-			var returnValue = rawr.add(fakeString, fakeFunc);
-			returnValue.should.equal(rawr);
-		});
-	});
+        it('should return promptosaurus instance', function () {
+            var returnValue = rawr.add(fakeString, fakeFunc);
+            returnValue.should.equal(rawr);
+        });
+    });
 
-	describe('#askNext()', function(){
-		describe('when queue property\'s length is > 0', function(){
+    describe('#askNext()', function () {
 
-			var fakeString = 'foo';
-			var fakeFunc = function () {};
+        describe('when queue property\'s length is > 0', function () {
 
-			it('should update counter property', function(){
-				rawr.counter.should.equal(0);
-				rawr.queue[0] = {
-					'query': fakeString,
-					'callback': fakeFunc
-				}
+            var fakeString = 'foo';
+            var fakeFunc = function () {};
 
-				rawr.askNext();
-				rawr.counter.should.equal(1);
-			});
+            it('should update counter property', function () {
+                rawr.counter.should.equal(0);
+                rawr.queue[0] = {
+                    'query': fakeString,
+                    'callback': fakeFunc
+                };
 
-			it('should remove item from queue', function(){
-				rawr.queue[0] = {
-					'query': fakeString,
-					'callback': fakeFunc
-				}
-				rawr.queue.length.should.equal(1);
-				rawr.askNext();
-				rawr.queue.length.should.equal(0);
-			});
+                rawr.askNext();
+                rawr.counter.should.equal(1);
+            });
 
-			it('should present question', function(){
+            it('should remove item from queue', function () {
+                rawr.queue[0] = {
+                    'query': fakeString,
+                    'callback': fakeFunc
+                };
 
-			});
-		});
+                rawr.queue.length.should.equal(1);
+                rawr.askNext();
+                rawr.queue.length.should.equal(0);
+            });
 
-		describe('when queue property\'s length is <= 0', function(){
-			it('should set counter property to 0', function(){
-				rawr.counter = 1;
-				rawr.askNext();
-				rawr.counter.should.equal(0)
-			});
+            it('should present question', function () {
 
-			it('should call assigned #complete() callback', function(){
-				var completeStub = sinon.stub(rawr, 'complete');
-				rawr.askNext();
-				completeStub.should.have.been.calledOnce;
-				completeStub.should.have.been.calledWith(rawr.inputs);
+            });
+        });
 
-				rawr.complete.restore();
-			});
+        describe('when queue property\'s length is <= 0', function () {
 
-			it('should display farewell message', function(){
-				var consoleStub = sinon.stub(console, 'log');
-				rawr.askNext();
-				console.log.restore();
-				consoleStub.should.have.been.calledOnce;
-				consoleStub.should.have.been.calledWith(rawr.farewell);
-			});
+            it('should set counter property to 0', function () {
+                rawr.counter = 1;
+                rawr.askNext();
+                rawr.counter.should.equal(0);
+            });
 
-			it('should close readline interface', function(){
-				var closeStub = sinon.stub(rawr.line, 'close');
-				rawr.askNext();
-				closeStub.should.have.been.calledOnce;
-			});
-		});
-	});
+            it('should call assigned #complete() callback', function () {
+                var completeStub = sinon.stub(rawr, 'complete');
+                rawr.askNext();
+                completeStub.should.have.been.calledOnce;
+                completeStub.should.have.been.calledWith(rawr.inputs);
 
-	describe('#getQHandler()', function(){
-		var fakeObj = {
-			callback: function(){}
-		};
+                rawr.complete.restore();
+            });
 
-		it('should return a function', function(){
-			var returnValue = rawr.getQHandler(fakeObj);
-			returnValue.should.be.a('function');
-		});
-	});
+            it('should display farewell message', function () {
+                var consoleStub = sinon.stub(console, 'log');
+                rawr.askNext();
+                console.log.restore();
+                consoleStub.should.have.been.calledOnce;
+                consoleStub.should.have.been.calledWith(rawr.farewell);
+            });
 
-	describe('#ask()', function(){
+            it('should close readline interface', function () {
+                var closeStub = sinon.stub(rawr.line, 'close');
+                rawr.askNext();
+                closeStub.should.have.been.calledOnce;
+            });
+        });
+    });
 
-		it('should display greeting', function(){
-			var consoleStub = sinon.stub(console, 'log');
-			rawr.ask()
-			console.log.restore();
+    describe('#getQHandler()', function () {
 
-			consoleStub.should.have.been.calledWith(rawr.greeting);
+        var fakeObj = {
+            'callback': function () {}
+        };
 
-		});
+        it('should return a function', function () {
+            var returnValue = rawr.getQHandler(fakeObj);
+            returnValue.should.be.a('function');
+        });
+    });
 
-		it('should start the prompt process', function() {
-			var nextStub = sinon.stub(rawr, 'askNext');
-			rawr.ask();
+    describe('#ask()', function () {
 
-			nextStub.should.have.been.calledOnce;
-			rawr.askNext.restore();
-		});
-	});
+        it('should display greeting', function () {
+            var consoleStub = sinon.stub(console, 'log');
+            rawr.ask();
+            console.log.restore();
 
-	describe('#done()', function (){
+            consoleStub.should.have.been.calledWith(rawr.greeting);
+        });
 
-		var callback = function (){};
+        it('should start the prompt process', function () {
+            var nextStub = sinon.stub(rawr, 'askNext');
+            rawr.ask();
 
-		it('should set .complete property as passed callback', function (){
-			rawr.done(callback);
-			rawr.complete.should.equal(callback);
-		});
+            nextStub.should.have.been.calledOnce;
+            rawr.askNext.restore();
+        });
+    });
 
-		it('should return promptosaurus instance', function (){
-			var returnValue = rawr.done(callback);
-			returnValue.should.equal(rawr);
-		});
-	});
+    describe('#done()', function () {
+
+        var callback = function () {};
+
+        it('should set .complete property as passed callback', function () {
+            rawr.done(callback);
+            rawr.complete.should.equal(callback);
+        });
+
+        it('should return promptosaurus instance', function () {
+            var returnValue = rawr.done(callback);
+            returnValue.should.equal(rawr);
+        });
+    });
 });
