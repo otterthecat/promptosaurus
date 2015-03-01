@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require('fs');
-var Rawr = require('../promptosaurus');
+var Rawr = require('../lib/promptosaurus');
 var rawr = new Rawr();
 
 var pkg = {

@@ -1,5 +1,7 @@
-/* jshint expr: true */
+/* eslint-env node, mocha */
+/* eslint padded-blocks: 0 no-unused-expressions: 0 */
 /* jscs:disable disallowPaddingNewlinesInBlocks */
+
 // assertion library
 // /////////////////////////////////////////////////////////
 var chai = require('chai');
@@ -99,9 +101,10 @@ describe('promptosaurus', function () {
             });
 
             it('should display farewell message', function () {
-                var consoleStub = sinon.stub(console, 'log');
+                var consoleStub = sinon.stub(process.stdout, 'write');
                 rawr.askNext();
-                console.log.restore();
+                process.stdout.write.restore();
+
                 consoleStub.should.have.been.calledOnce;
                 consoleStub.should.have.been.calledWith(rawr.farewell);
             });
@@ -129,9 +132,9 @@ describe('promptosaurus', function () {
     describe('#ask()', function () {
 
         it('should display greeting', function () {
-            var consoleStub = sinon.stub(console, 'log');
+            var consoleStub = sinon.stub(process.stdout, 'write');
             rawr.ask();
-            console.log.restore();
+            process.stdout.write.restore();
 
             consoleStub.should.have.been.calledWith(rawr.greeting);
         });

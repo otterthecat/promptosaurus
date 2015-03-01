@@ -1,8 +1,19 @@
-// Gulp
-var gulp = require('gulp');
+/*eslint-env node */
 
-// Tools
+var gulp = require('gulp');
+var eslint = require('gulp-eslint');
+var bump = require('gulp-bump');
 var complexity = require('gulp-complexity');
+var jscs = require('gulp-jscs');
+var mocha = require('gulp-mocha');
+var istanbul = require('gulp-istanbul');
+var plato = require('gulp-plato');
+
+// Target Files
+var sources = ['gulpfile.js', './lib/*.js', './test/specs/*.js'];
+var pkg = './package.json';
+var tests = './test/specs/*.js';
+
 var complexityOpts = {
     'errorsOnly': false,
     'cyclomatic': 3,
@@ -11,36 +22,27 @@ var complexityOpts = {
     'trycatch': true
 };
 
-var bump = require('gulp-bump');
-
-// Validation
-var jshint = require('gulp-jshint');
-var jshintOpts = {
-    'options': {
-        'strict': true
-    }
-};
-
-var stylish = require('jshint-stylish');
-var jscs = require('gulp-jscs');
-
-// Testing
-var mocha = require('gulp-mocha');
-
-// Reports
-var istanbul = require('gulp-istanbul');
-var plato = require('gulp-plato');
 var platoOpts = {
-    'jshint': jshintOpts,
+    'jshint': {
+        'options': {
+            'strict': true
+        }
+    },
     'complexity': complexityOpts
 };
 
-// Target Files
-var sources = ['gulpfile.js', './lib/*.js', './test/specs/*.js'];
-var pkg = './package.json';
-var tests = './test/specs/*.js';
 
-// Tasks
+gulp.task('lint', function () {
+    'use strict';
+
+    // Note: To have the process exit with an error code (1) on
+    //  lint error, return the stream and pipe to failOnError last.
+    return gulp.src(sources)
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+});
+
 gulp.task('bump:patch', function () {
     'use strict';
 
@@ -71,18 +73,8 @@ gulp.task('format', function () {
     gulp.src(sources)
         .pipe(jscs())
         .on('error', function (obj) {
-            console.log(obj.message);
-            process.exit(1);
+            throw new Error(obj.message);
         });
-});
-
-gulp.task('lint', function () {
-    'use strict';
-
-    gulp.src(sources)
-        .pipe(jshint())
-        .pipe(jshint.reporter(stylish))
-        .pipe(jshint.reporter('fail'));
 });
 
 gulp.task('plato', function () {
@@ -111,7 +103,7 @@ gulp.task('test', function (cb) {
     'use strict';
 
     gulp.src(['./lib/**/*.js'])
-        .pipe(istanbul()) // Covering files
+        .pipe(istanbul())
         .on('finish', function () {
             gulp.src(tests)
                 .pipe(mocha({'reporter': 'nyan'}))
@@ -126,7 +118,7 @@ gulp.task('coverage', function (cb) {
     'use strict';
 
     gulp.src(['./lib/**/*.js'])
-        .pipe(istanbul()) // Covering files
+        .pipe(istanbul())
         .on('finish', function () {
             gulp.src(tests)
                 .pipe(mocha({'reporter': 'nyan'}))
