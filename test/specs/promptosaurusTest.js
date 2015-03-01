@@ -10,11 +10,6 @@ var sinonChai = require('sinon-chai');
 chai.should();
 chai.use(sinonChai);
 
-// stubs
-// /////////////////////////////////////////////////////////
-
-
-
 // modules to test
 // /////////////////////////////////////////////////////////
 var Rawr = require('../../index');
@@ -112,9 +107,7 @@ describe('promptosaurus', function () {
             });
 
             it('should display farewell message', function () {
-                // var consoleStub = sinon.stub(process.stdout, 'write');
                 rawr.askNext();
-                // process.stdout.write.restore();
 
                 consoleStub.should.have.been.calledOnce;
                 consoleStub.should.have.been.calledWith(rawr.farewell);
@@ -154,10 +147,7 @@ describe('promptosaurus', function () {
         });
 
         it('should display greeting', function () {
-            // var consoleStub = sinon.stub(process.stdout, 'write');
             rawr.ask();
-            // process.stdout.write.restore();
-
             consoleStub.should.have.been.calledWith(rawr.greeting);
         });
 
