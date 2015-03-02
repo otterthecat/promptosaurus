@@ -1,4 +1,5 @@
-/*eslint-env node */
+/* eslint-env node */
+/* eslint no-process-exit: 0 */
 
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
@@ -72,8 +73,9 @@ gulp.task('format', function () {
 
     gulp.src(sources)
         .pipe(jscs())
-        .on('error', function (obj) {
-            throw new Error(obj.message);
+        .on('error', function (err) {
+            process.stdout.write(err.message + '\n');
+            process.exit(1);
         });
 });
 
