@@ -1,3 +1,13 @@
+
+                    __
+                   / _)
+          _.----._/ /
+         /         /     PROMPTOSAURUS
+      __/ (  | (  |      you bet jurasic works.
+    /__.-''|_|--|_|
+
+
+
 # Promptosaurus
 NodeJS command line tool for handling prompted user input
 
@@ -23,3 +33,15 @@ Pretty much behaves the same as `askNext()`, but will also include the "Dino Gre
 
 ### `.done(func)`
 Allows user to pre-define a callback once all set prompts have run.
+
+#### Examples
+The provided examples in the `example` directory should already be executable.
+If not, then make them so by running `chmod`. Then, just call it normally to see it in action:
+
+`./example/basic.js`
+
+#### Tests
+```javascript
+npm install
+npm test
+````

@@ -1,7 +1,3 @@
-/* eslint-env node, mocha */
-/* eslint padded-blocks: 0 no-unused-expressions: 0 */
-/* jscs:disable disallowPaddingNewlinesInBlocks */
-
 // assertion library
 // /////////////////////////////////////////////////////////
 var chai = require('chai');

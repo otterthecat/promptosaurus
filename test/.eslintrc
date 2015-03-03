@@ -1,0 +1,18 @@
+{
+
+    "env": {
+        "node": true,
+        "mocha":true
+    },
+
+    "rules": {
+
+        "padded-blocks": 0,
+
+        "no-unused-expressions": 0,
+
+        "no-underscore-dangle": 0,
+
+        "no-process-exit": 2
+    }
+}

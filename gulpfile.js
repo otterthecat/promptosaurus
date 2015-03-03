@@ -1,6 +1,3 @@
-/* eslint-env node */
-/* eslint no-process-exit: 0 */
-
 var gulp = require('gulp');
 var eslint = require('gulp-eslint');
 var bump = require('gulp-bump');

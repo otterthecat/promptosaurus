@@ -1,6 +1,4 @@
 {
-    "disallowDanglingUnderscores": true,
-
     "disallowEmptyBlocks": true,
 
     "disallowFunctionDeclarations": true,
@@ -31,8 +29,6 @@
         "&&",
         "!"
     ],
-
-    "disallowPaddingNewlinesInBlocks": true,
 
     "disallowSpaceAfterObjectKeys": true,
 
