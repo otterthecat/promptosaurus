@@ -38,6 +38,15 @@ describe('promptosaurus', function () {
             var returnValue = rawr.add(fakeString, fakeFunc);
             returnValue.should.equal(rawr);
         });
+
+        describe('when no callback is passed', function () {
+
+            it('should push empty function to queue', function () {
+                rawr.add(fakeString);
+                rawr.queue[0].query.should.contain(fakeString);
+                rawr.queue[0].callback.should.be.a('function');
+            });
+        });
     });
 
     describe('#askNext()', function () {
