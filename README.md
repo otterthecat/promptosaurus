@@ -33,6 +33,8 @@ Pretty much behaves the same as `askNext()`, but will also include the "Dino Gre
 
 ### `.done(func)`
 Allows user to pre-define a callback once all set prompts have run.
+The callback will be passed an object with properties matching the provided answers.
+Each property name will be prefixed with "input" + the numeric order it was recieved - i.e. first provided answer will be stored in property `input1`, second will be `input2` and so on.
 
 #### Examples
 The provided examples in the `example` directory should already be executable.
