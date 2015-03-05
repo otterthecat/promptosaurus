@@ -9,8 +9,8 @@
     "email": "otc@otterthecat.com"
   },
   "engines": {
-    "node": "^0.10.35",
-    "npm": "^1.4.28"
+    "node": ">=0.10.0 <=0.12.0",
+    "npm": ">=1.4.28 <=2.5.1"
   },
   "repository": {
     "type": "git",
