@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var plato = require('gulp-plato');
-var sources = require('../config/sources').js;
+var sources = require('../config/sources').module;
 var options = require('../config/options').plato;
 
 module.exports = function () {

@@ -7,7 +7,7 @@ var options = require('../config/options');
 module.exports = function (callback) {
     'use strict';
 
-    gulp.src(sources.js)
+    gulp.src(sources.module)
         .pipe(istanbul())
         .on('finish', function () {
             gulp.src(sources.test)
