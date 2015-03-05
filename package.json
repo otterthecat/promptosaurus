@@ -18,7 +18,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/gulp"
+    "test": "./node_modules/.bin/gulp mocha:istanbul"
   },
   "directories": {
     "example": "./examples",
