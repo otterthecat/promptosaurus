@@ -3,7 +3,7 @@
                    / _)
           _.----._/ /
          /         /     PROMPTOSAURUS
-      __/ (  | (  |      you bet jurasic works.
+      __/ (  | (  |      you bet jurassic works.
     /__.-''|_|--|_|
 
 
