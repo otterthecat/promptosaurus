@@ -49,6 +49,31 @@ describe('promptosaurus', function () {
         });
     });
 
+    describe('#log()', function () {
+
+        var processStub,
+            str = 'foobar bazbuzz';
+
+        beforeEach(function () {
+            processStub = sinon.stub(process.stdout, 'write');
+            rawr.log(str);
+        });
+
+        afterEach(function () {
+            processStub = null;
+            process.stdout.write.restore();
+        });
+
+        it('should pass string to stdout', function () {
+            processStub.args[0][0].should.contain(str);
+        });
+
+        it('should return instance for chaining', function () {
+            var returnValue = rawr.log('foobar bazbuzz');
+            returnValue.should.equal(rawr);
+        });
+    });
+
     describe('#askNext()', function () {
 
         describe('when queue property\'s length is > 0', function () {
@@ -76,10 +101,6 @@ describe('promptosaurus', function () {
                 rawr.queue.length.should.equal(1);
                 rawr.askNext();
                 rawr.queue.length.should.equal(0);
-            });
-
-            it('should present question', function () {
-
             });
         });
 
@@ -128,15 +149,38 @@ describe('promptosaurus', function () {
 
     describe('#getQHandler()', function () {
 
-        // TODO - make this stub a spy to ensure
-        // correct arguments are passed to callback
-        var fakeObj = {
-            'callback': function () {}
-        };
+        var fakeObj,
+            nextStub;
+
+        beforeEach(function () {
+            // stub askNext to help clean test results in command line
+            nextStub = sinon.stub(rawr, 'askNext');
+            fakeObj = {
+                'callback': function () {}
+            }
+        });
+
+        afterEach(function () {
+            nextStub = null;
+            fakeObj = null;
+            rawr.askNext.restore();
+        });
 
         it('should return a function', function () {
             var returnValue = rawr.getQHandler(fakeObj);
             returnValue.should.be.a('function');
+        });
+
+        it('should call argument\'s callback when called', function () {
+            var callbackStub = sinon.stub(fakeObj, 'callback');
+            var fn = rawr.getQHandler(fakeObj);
+
+            callbackStub.should.not.have.been.called;
+
+            fn('data');
+
+            callbackStub.should.have.been.calledOnce;
+            callbackStub.should.have.been.calledWith(rawr, 'data');
         });
     });
 
