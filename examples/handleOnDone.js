@@ -9,7 +9,7 @@ rawr.add('What is stuff?')
 .add('Who said things')
 .done(function(inputs){
     for(item in inputs) {
-        console.log(item + ' is ' + inputs[item]);
+        this.log(item + ' is ' + inputs[item]);
     }
 })
 .ask();

@@ -180,7 +180,7 @@ describe('promptosaurus', function () {
             fn('data');
 
             callbackStub.should.have.been.calledOnce;
-            callbackStub.should.have.been.calledWith(rawr, 'data');
+            callbackStub.should.have.been.calledWith('data');
         });
     });
 

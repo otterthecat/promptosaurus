@@ -5,12 +5,12 @@ var Rawr = require('../lib/promptosaurus');
 var rawr = new Rawr();
 
 rawr.add('what is this? ', function(data){
-    console.log(data);
+    this.log(data);
 })
 .add('who are you? ', function(data){
-    console.log(data);
+    this.log(data);
 })
 .done(function(inputs){
-    console.log('DONE! ', inputs);
+    this.log('We are done. You can go now');
 })
 .ask();
