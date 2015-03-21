@@ -74,6 +74,21 @@ describe('promptosaurus', function () {
         });
     });
 
+    describe('#askAgain()', function () {
+        it('should show the "ask again" message', function (){
+            var fakeObj = {
+                'query': 'this is s test',
+                'callback': function(){}
+            },
+            logStub = sinon.stub(rawr, 'log'),
+            handlerStub = sinon.stub(rawr, 'getQHandler');
+            rawr.askAgain(fakeObj);
+
+            logStub.should.have.been.calledWith(rawr.tryAgain);
+            handlerStub.should.have.been.calledWith(fakeObj);
+        });
+    });
+
     describe('#askNext()', function () {
 
         describe('when queue property\'s length is > 0', function () {
@@ -150,11 +165,13 @@ describe('promptosaurus', function () {
     describe('#getQHandler()', function () {
 
         var fakeObj,
-            nextStub;
+            nextStub,
+            againStub;
 
         beforeEach(function () {
             // stub askNext to help clean test results in command line
             nextStub = sinon.stub(rawr, 'askNext');
+            againStub = sinon.stub(rawr, 'askAgain');
             fakeObj = {
                 'callback': function () {}
             }
@@ -162,8 +179,10 @@ describe('promptosaurus', function () {
 
         afterEach(function () {
             nextStub = null;
+            againStub = null;
             fakeObj = null;
             rawr.askNext.restore();
+            rawr.askAgain.restore();
         });
 
         it('should return a function', function () {
@@ -181,6 +200,18 @@ describe('promptosaurus', function () {
 
             callbackStub.should.have.been.calledOnce;
             callbackStub.should.have.been.calledWith('data');
+            againStub.should.not.have.have.been.called;
+        });
+
+        it('should call #askAgain instead of #askNext() when .answerIsValid is falsey', function () {
+            var callbackStub = sinon.stub(fakeObj, 'callback');
+            rawr.answerIsValid = false;
+
+            var fn = rawr.getQHandler(fakeObj);
+
+            fn('data');
+
+            againStub.should.have.been.calledWith(fakeObj);
         });
     });
 
