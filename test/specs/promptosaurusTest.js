@@ -88,12 +88,12 @@ describe('promptosaurus', function () {
             var consoleStub;
 
             beforeEach(function () {
-                consoleStub = sinon.stub(process.stdout, 'write');
+                consoleStub = sinon.stub(rawr, 'log');
             });
 
             afterEach(function () {
                 consoleStub = null;
-                process.stdout.write.restore();
+                rawr.log.restore();
             });
 
             it('should set counter property to 0', function () {
@@ -106,7 +106,7 @@ describe('promptosaurus', function () {
                 var completeStub = sinon.stub(rawr, 'complete');
                 rawr.askNext();
                 completeStub.should.have.been.calledOnce;
-                completeStub.should.have.been.calledWith(rawr.inputs);
+                completeStub.should.have.been.calledWith(rawr.queries);
 
                 rawr.complete.restore();
             });
@@ -128,6 +128,8 @@ describe('promptosaurus', function () {
 
     describe('#getQHandler()', function () {
 
+        // TODO - make this stub a spy to ensure
+        // correct arguments are passed to callback
         var fakeObj = {
             'callback': function () {}
         };
@@ -143,12 +145,12 @@ describe('promptosaurus', function () {
         var consoleStub;
 
         beforeEach(function () {
-            consoleStub = sinon.stub(process.stdout, 'write');
+            consoleStub = sinon.stub(rawr, 'log');
         });
 
         afterEach(function () {
             consoleStub = null;
-            process.stdout.write.restore();
+            rawr.log.restore();
         });
 
         it('should display greeting', function () {
