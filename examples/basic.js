@@ -10,7 +10,7 @@ rawr.add('what is this? ', function(data){
 .add('who are you? ', function(data){
     this.log(data);
 })
-.done(function(inputs){
+.done(function(){
     this.log('We are done. You can go now');
 })
 .ask();

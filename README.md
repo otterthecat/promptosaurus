@@ -47,3 +47,6 @@ If not, then make them so by running `chmod`. Then, just call it normally to see
 npm install
 npm test
 ````
+#### Changelog
+0.2.0 - added ability to repeat question if response is not considered valid. Callback for `.done()` is no longer passed an argument in favor of direct access to `.queries` property.
+0.1.0 - initial release

@@ -142,7 +142,6 @@ describe('promptosaurus', function () {
                 var completeStub = sinon.stub(rawr, 'complete');
                 rawr.askNext();
                 completeStub.should.have.been.calledOnce;
-                completeStub.should.have.been.calledWith(rawr.queries);
 
                 rawr.complete.restore();
             });
@@ -203,9 +202,9 @@ describe('promptosaurus', function () {
             againStub.should.not.have.have.been.called;
         });
 
-        it('should call #askAgain instead of #askNext() when .answerIsValid is falsey', function () {
+        it('should call #askAgain instead of #askNext() when .hasValidResponse is falsey', function () {
             var callbackStub = sinon.stub(fakeObj, 'callback');
-            rawr.answerIsValid = false;
+            rawr.hasValidResponse = false;
 
             var fn = rawr.getQHandler(fakeObj);
 
