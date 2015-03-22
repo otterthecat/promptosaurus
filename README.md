@@ -39,13 +39,11 @@ The callback function is optional, and if passed, will get the user's response p
 If the callback is not set, then the user input will be stored in Promptosaurus and accessible from within the `.done()` function.
 
 ### `.ask()`
-Used as a semantic means to kick off the first prompt.
-Pretty much behaves the same as `askNext()`, but will also include the "Dino Greeting" to the user to help indicate they'll need to provide some answers.
+Used as a semantic means to kick off the queued prompts.
+Will also include the "Dino Greeting" to the user to help indicate they're about to be on a rollercoaster ride to Funtown.
 
 ### `.done(func)`
 Allows user to pre-define a callback once all set prompts have run.
-The callback will be passed an object with properties matching the provided answers.
-Each property name will be prefixed with "input" + the numeric order it was recieved - i.e. first provided answer will be stored in property `input1`, second will be `input2` and so on.
 
 ### `.log(string)`
 Basically just a wrapper for `process.stdout.write()`, but includes coloring of output to match other colors and whitespace of default Promptosaurus output. Accessible withing callbacks via `this.log(string)`.
