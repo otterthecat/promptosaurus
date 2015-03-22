@@ -16,7 +16,6 @@ Promptosaurus is a constructor. Require it normally and create an instance:
 
 ```javascript
 #!/usr/bin/env node
-#!/usr/bin/env node
 var Promptosaurus = require('promptosaurus');
 var rawr = new Promptosaurus();
 
