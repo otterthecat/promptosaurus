@@ -11,6 +11,7 @@ rawr.add('Would you like to play a game of chess (y | n)?', function(answer){
     // then be set true with acceptable answer, or it will continue to loop
     // the same question over and over.
     this.hasValidResponse = (answer === 'y' || answer === 'n');
+    this.setError('Yeah... that answer is not a "y" or "n". Try again');
     this.log('You have responded with: ' + answer);
 })
 .done(function(){

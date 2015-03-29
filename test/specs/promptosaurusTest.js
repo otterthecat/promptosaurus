@@ -49,6 +49,13 @@ describe('promptosaurus', function () {
         });
     });
 
+    describe('#setError', function () {
+        it('should set .tryAgain message', function(){
+            rawr.setError('foo');
+            rawr.tryAgain.should.equal('foo');
+        });
+    });
+
     describe('#log()', function () {
 
         var processStub,
@@ -116,6 +123,18 @@ describe('promptosaurus', function () {
                 rawr.queue.length.should.equal(1);
                 rawr.askNext();
                 rawr.queue.length.should.equal(0);
+            });
+
+            it('should restore .tryAgain message to default', function () {
+                rawr.queue[0] = {
+                    'query': fakeString,
+                    'callback': fakeFunc
+                };
+
+                var origMessage = rawr.tryAgain;
+                rawr.setError('baz');
+                rawr.askNext();
+                rawr.tryAgain.should.equal(origMessage);
             });
         });
 
