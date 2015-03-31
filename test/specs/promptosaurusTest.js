@@ -84,7 +84,7 @@ describe('promptosaurus', function () {
             handlerStub = sinon.stub(rawr, 'getQHandler');
             rawr.askAgain(fakeObj);
 
-            logStub.should.have.been.calledWith(rawr.tryAgain);
+            logStub.should.have.been.calledWith(rawr.messages.tryAgain);
             handlerStub.should.have.been.calledWith(fakeObj);
         });
     });
@@ -150,7 +150,7 @@ describe('promptosaurus', function () {
                 rawr.askNext();
 
                 consoleStub.should.have.been.calledOnce;
-                consoleStub.should.have.been.calledWith(rawr.farewell);
+                consoleStub.should.have.been.calledWith(rawr.messages.farewell);
             });
 
             it('should close readline interface', function () {
@@ -229,7 +229,7 @@ describe('promptosaurus', function () {
 
         it('should display greeting', function () {
             rawr.ask();
-            consoleStub.should.have.been.calledWith(rawr.greeting);
+            consoleStub.should.have.been.calledWith(rawr.messages.greeting);
         });
 
         it('should start the prompt process', function () {
