@@ -5,7 +5,7 @@ module.exports = function () {
     'use strict';
 
     return gulp.watch(
-            [sources.js],
+            [sources.js, sources.test],
             ['lint', 'mocha']
         );
 };
