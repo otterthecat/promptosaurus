@@ -81,21 +81,6 @@ describe('promptosaurus', function () {
         });
     });
 
-    describe('#askAgain()', function () {
-        it('should show the "ask again" message', function (){
-            var fakeObj = {
-                'query': 'this is s test',
-                'callback': function(){}
-            },
-            logStub = sinon.stub(rawr, 'log'),
-            handlerStub = sinon.stub(rawr, 'getQHandler');
-            rawr.askAgain(fakeObj);
-
-            logStub.should.have.been.calledWith(rawr.tryAgain);
-            handlerStub.should.have.been.calledWith(fakeObj);
-        });
-    });
-
     describe('#askNext()', function () {
 
         describe('when queue property\'s length is > 0', function () {
@@ -177,59 +162,6 @@ describe('promptosaurus', function () {
                 rawr.askNext();
                 closeStub.should.have.been.calledOnce;
             });
-        });
-    });
-
-    describe('#getQHandler()', function () {
-
-        var fakeObj,
-            nextStub,
-            againStub;
-
-        beforeEach(function () {
-            // stub askNext to help clean test results in command line
-            nextStub = sinon.stub(rawr, 'askNext');
-            againStub = sinon.stub(rawr, 'askAgain');
-            fakeObj = {
-                'callback': function () {}
-            }
-        });
-
-        afterEach(function () {
-            nextStub = null;
-            againStub = null;
-            fakeObj = null;
-            rawr.askNext.restore();
-            rawr.askAgain.restore();
-        });
-
-        it('should return a function', function () {
-            var returnValue = rawr.getQHandler(fakeObj);
-            returnValue.should.be.a('function');
-        });
-
-        it('should call argument\'s callback when called', function () {
-            var callbackStub = sinon.stub(fakeObj, 'callback');
-            var fn = rawr.getQHandler(fakeObj);
-
-            callbackStub.should.not.have.been.called;
-
-            fn('data');
-
-            callbackStub.should.have.been.calledOnce;
-            callbackStub.should.have.been.calledWith('data');
-            againStub.should.not.have.have.been.called;
-        });
-
-        it('should call #askAgain instead of #askNext() when .hasValidResponse is falsey', function () {
-            var callbackStub = sinon.stub(fakeObj, 'callback');
-            rawr.hasValidResponse = false;
-
-            var fn = rawr.getQHandler(fakeObj);
-
-            fn('data');
-
-            againStub.should.have.been.calledWith(fakeObj);
         });
     });
 
