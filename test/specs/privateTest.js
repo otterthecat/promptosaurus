@@ -32,12 +32,48 @@ describe('private', function(){
     describe('#getQHandler', function(){
 
         var fakeScope = {
+            'query': {}
         },
-        fakeArg = {};
+        fakeArg = {
+            'callback': sinon.spy()
+        };
 
-        var returnValue = pvt.getQHandler.call(fakeScope, fakeArg);
         it('should return a function', function(){
+            var returnValue = pvt.getQHandler.call(fakeScope, fakeArg);
             returnValue.should.be.a('function');
+        });
+
+        describe('returned function', function(){
+
+            var fnScope = {
+                'hasValidResponse': true,
+                'queries': [],
+                'askNext': sinon.spy()
+            }
+
+            it('should update scoped array if scope has valid response', function(){
+                var returnValue = pvt.getQHandler.call(fnScope, fakeArg);
+                returnValue({});
+                var len = fnScope.queries.length;
+                len.should.equal(1);
+            });
+
+            it('should NOT update scoped array if scope does not have valid response', function(){
+                var fnFalseScope = {
+                    'hasValidResponse': false,
+                    'queries': [],
+                    'askNext': sinon.spy(),
+                    'line': {
+                        'question': function(){}
+                    },
+                    'tryAgain': function(){},
+                    'log': function(){}
+                }
+                var returnValue = pvt.getQHandler.call(fnFalseScope, fakeArg);
+                returnValue({});
+                var len = fnFalseScope.queries.length;
+                len.should.equal(0);
+;            })
         });
     });
 
