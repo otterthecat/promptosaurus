@@ -23,6 +23,7 @@ rawr.add('Would you like to play a game of chess (y | n)?', function(answer){
 
     this.hasValidResponse = (answer === 'y' || answer === 'n');
     this.log('You have responded with: ' + answer);
+    this.setError('You did not answer with a "y" or "n" - try again');
 })
 .done(function(){
     this.log('You were asked: ' + this.queries[0].prompt);
@@ -45,6 +46,11 @@ Will also include the "Dino Greeting" to the user to help indicate they're about
 ### `.done(func)`
 Allows user to pre-define a callback once all set prompts have run.
 
+### `.setError(string)`
+Set an error message to display if the `.hasValidResponse` test fails.
+If no test for `.hasValidResponse` exists for current prompt, no error message
+will be shown.
+
 ### `.log(string)`
 Basically just a wrapper for `process.stdout.write()`, but includes coloring of output to match other colors and whitespace of default Promptosaurus output. Accessible withing callbacks via `this.log(string)`.
 [See examples for more information](https://github.com/otterthecat/promptosaurus/tree/master/examples).
@@ -65,6 +71,12 @@ npm install
 npm test
 ````
 #### Changelog
+1.1.0
+ * added `.setError()` function to display error messages.
+ * extracted 'private' functions to their own file.
+ * fixed watch task issue.
+ * fixed lint issues.
+
 1.0.0
  * added ability to repeat question if response is not considered valid.
  * Callback for `.done()` is no longer passed an argument in favor of direct access to `.queries` property.
