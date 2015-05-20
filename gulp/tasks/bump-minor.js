@@ -5,6 +5,8 @@ module.exports = function () {
     'use strict';
 
     return gulp.src('./package.json')
-                .pipe(bump({type : 'minor'}))
+                .pipe(bump({
+                    'type': 'minor'
+                }))
                 .pipe(gulp.dest('./'));
 };

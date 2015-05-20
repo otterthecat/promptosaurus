@@ -1,6 +1,5 @@
 module.exports = [
-    'jscs',
-    'eslint',
+    'lint',
     'complexity',
     'mocha:istanbul'
 ];

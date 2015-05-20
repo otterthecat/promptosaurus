@@ -73,7 +73,7 @@ describe('private', function(){
                 returnValue({});
                 var len = fnFalseScope.queries.length;
                 len.should.equal(0);
-;            })
+            });
         });
     });
 
