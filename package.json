@@ -1,6 +1,6 @@
 {
   "name": "promptosaurus",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "simple command line prompt tool",
   "homepage": "https://github.com/otterthecat/promptosaurus",
   "bugs": "https://github.com/otterthecat/promptosaurus/issues",
@@ -9,8 +9,8 @@
     "email": "otc@otterthecat.com"
   },
   "engines": {
-    "node": ">=0.10.0 <=0.12.0",
-    "npm": ">=1.4.28 <=2.5.1"
+    "node": ">=0.10.0 <=0.12.x",
+    "npm": ">=1.4.28 <=2.5.x"
   },
   "repository": {
     "type": "git",
