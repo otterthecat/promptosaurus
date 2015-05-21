@@ -52,7 +52,7 @@ If no test for `.hasValidResponse` exists for current prompt, no error message
 will be shown.
 
 ### `.log(string)`
-Basically just a wrapper for `process.stdout.write()`, but includes coloring of output to match other colors and whitespace of default Promptosaurus output. Accessible withing callbacks via `this.log(string)`.
+Basically just a wrapper for `process.stdout.write()`, but includes coloring of output to match other colors and whitespace of default Promptosaurus output. Accessible within callbacks via `this.log(string)`.
 [See examples for more information](https://github.com/otterthecat/promptosaurus/tree/master/examples).
 
 ### `.hasValidResponse [boolean]`
