@@ -5,9 +5,8 @@ var options = require('../config/options').plato;
 
 module.exports = function () {
     'use strict';
-    return gulp.src(sources)
-        .pipe(plato(options.dest, {
-            'complexity': options.complexity,
-            'jshint': options.jshint
+    return gulp.src(sources).pipe(plato(options.dest, {
+        'complexity': options.complexity,
+        'jshint': options.jshint
     }));
 };
